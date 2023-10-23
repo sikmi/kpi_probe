@@ -1,0 +1,25 @@
+version: '3'
+services:
+  web:
+    build: .
+    command: /bin/sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    volumes:
+      - .:/app
+      - node-modules-volume:/app/node_modules
+      - bundle-volume:/usr/local/bundle
+    ports:
+      - 3030:3000
+    tty: true
+    stdin_open: true
+    environment:
+      RDS_HOSTNAME: bondo-api-db-1.external.group
+      RDS_USERNAME: root
+      RDS_PASSWORD: root
+    networks:
+      - external.group
+volumes:
+  bundle-volume:
+  node-modules-volume:
+networks:
+  external.group:
+    external: true
