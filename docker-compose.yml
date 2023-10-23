@@ -17,6 +17,18 @@ services:
       RDS_PASSWORD: root
     networks:
       - external.group
+  matomo:
+    image: matomo:latest
+    platform: linux/x86_64
+    ports:
+      - "80:80"
+    environment:
+      MATOMO_DATABASE_HOST: bondo-api-db-1.external.group
+      MATOMO_DATABASE_DBNAME: bondo-api_development
+      MATOMO_DATABASE_USERNAME: root
+      MATOMO_DATABASE_PASSWORD: root
+    networks:
+      - external.group
 volumes:
   bundle-volume:
   node-modules-volume:
