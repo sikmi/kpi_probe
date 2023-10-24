@@ -1,0 +1,26 @@
+AllCops:
+  Exclude:
+    - "vendor/**/*" # rubocop config/default.yml
+    - "db/schema.rb"
+  DisplayCopNames: true
+
+Metrics/BlockLength:
+  Max: 26
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Layout/LineLength:
+  Max: 200
+
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - "db/migrate/*.rb"
+
+Metrics/PerceivedComplexity:
+  Max: 9
+
+Style/Documentation:
+  Enabled: false
+
