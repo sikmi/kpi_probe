@@ -13,5 +13,16 @@ module Matomo
 
     scope :new_post, -> { eager_load(:log_event_category).where(log_event_category: { name: 'NewPost' }) }
     scope :submit, -> { eager_load(:log_event).where(log_event: { name: 'Submit' }) }
+
+    def self.input_times(target)
+      submit_logs = send(target).submit
+      submit_logs.preload(log_visit: :user).map do |submit_log|
+        load_log = eager_load(:log_action_name).where(log_action_name: { name: submit_log.log_action_name.name })
+        {
+          input_time: submit_log.server_time - load_log.first.server_time,
+          user: submit_log.log_visit.user.twitter_name
+        }
+      end
+    end
   end
 end
