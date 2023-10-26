@@ -9,7 +9,7 @@ table
   tbody
     - @analysises.each do |analysis|
       tr
-        td = analysis.created_at
+        td = l(analysis.created_at)
         td = analysis.process_name
         td = analysis.user_name 
         td = analysis.time
