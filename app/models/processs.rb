@@ -8,7 +8,7 @@ class Processs
   TYPE_EVENT_CATEGORY = 10
 
   def self.all
-    actions = Matomo::Action.where(type: TYPE_EVENT_CATEGORY)
+    actions = Matomo::Action.where(type: TYPE_EVENT_CATEGORY).where.not('name LIKE ?', '%/%')
     log_counts = log_counts(actions)
     average_times = average_times(actions)
 
