@@ -1,0 +1,15 @@
+h1 = '分析'
+table
+  thead 
+    tr
+      th 完了時間
+      th プロセス
+      th ユーザー
+      th 計測時間
+  tbody
+    - @analysises.each do |analysis|
+      tr
+        td = l(analysis.created_at)
+        td = analysis.process_name
+        td = analysis.user_name 
+        td = analysis.time

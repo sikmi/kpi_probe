@@ -2,4 +2,6 @@
 
 Rails.application.routes.draw do
   root to: 'processes#index'
+
+  resources :analysises, only: [:index]
 end
