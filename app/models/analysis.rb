@@ -16,8 +16,8 @@ class Analysis
       Analysis.new(
         created_at: submit_log.server_time,
         process_name: submit_log.event_category.name,
-        user_name: submit_log.visit.user.twitter_name,
-        time: submit_log.server_time - load_log.server_time
+        user_name: submit_log.visit.user.name,
+        time: Time.at(submit_log.server_time - load_log.server_time).utc.strftime('%H:%M:%S')
       )
     end
   end
