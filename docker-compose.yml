@@ -12,9 +12,11 @@ services:
     tty: true
     stdin_open: true
     environment:
-      RDS_HOSTNAME: bondo-api-db-1.external.group
-      RDS_USERNAME: root
-      RDS_PASSWORD: root
+      RDS_HOSTNAME: $RDS_HOSTNAME
+      RDS_USERNAME: $RDS_USERNAME
+      RDS_PASSWORD: $RDS_PASSWORD
+      USER_TABLE: $USER_TABLE
+      USER_NAME_ATTRIBUTE: $USER_NAME_ATTRIBUTE
     networks:
       - external.group
   matomo:
@@ -23,10 +25,10 @@ services:
     ports:
       - "80:80"
     environment:
-      MATOMO_DATABASE_HOST: bondo-api-db-1.external.group
-      MATOMO_DATABASE_DBNAME: bondo-api_development
-      MATOMO_DATABASE_USERNAME: root
-      MATOMO_DATABASE_PASSWORD: root
+      MATOMO_DATABASE_HOST: $RDS_HOSTNAME
+      MATOMO_DATABASE_DBNAME: $RDS_DB_NAME
+      MATOMO_DATABASE_USERNAME: $RDS_USERNAME
+      MATOMO_DATABASE_PASSWORD: $RDS_PASSWORD
     networks:
       - external.group
 volumes:
