@@ -16,7 +16,7 @@ class Processs
       Processs.new(
         name: action.name,
         count: log_counts[index],
-        average_time: average_times[index]
+        average_time: Time.at(average_times[index]).utc.strftime('%H:%M:%S')
       )
     end
   end
