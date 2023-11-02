@@ -21,5 +21,9 @@ module Matomo
       users = User.where("#{ENV['USER_NAME_ATTRIBUTE']} LIKE ?", "%#{user_name}%")
       eager_load(visit: :user).where(visit: { user: users })
     }
+
+    scope :serarch_period, lambda { |start_date, end_date|
+      where(server_time: start_date&.beginning_of_day..end_date&.end_of_day)
+    }
   end
 end
