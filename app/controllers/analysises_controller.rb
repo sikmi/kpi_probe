@@ -2,6 +2,11 @@
 
 class AnalysisesController < ApplicationController
   def index
-    @analysises = Analysis.all
+    @search_params = search_params
+    @analysises = Analysis.search(search_params)
+  end
+
+  def search_params
+    params.permit(:user_name, :process_name)
   end
 end

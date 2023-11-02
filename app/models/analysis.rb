@@ -7,10 +7,16 @@ class Analysis
 
   TYPE_EVENT_CATEGORY = 10
 
-  def self.all
-    actions = Matomo::Action.where(type: TYPE_EVENT_CATEGORY).where.not('name LIKE ?', '%/%')
+  def self.search(search_params)
+    categories = Matomo::Action.where(type: TYPE_EVENT_CATEGORY).where.not('name LIKE ?', '%/%')
+    categories = categories.where('name LIKE ?', "%#{search_params[:process_name]}%") if search_params[:process_name].present?
 
-    submit_logs = Matomo::LinkVisitAction.submit_logs(actions).order(server_time: :desc)
+    submit_logs = Matomo::LinkVisitAction.submit_logs(categories).order(server_time: :desc)
+    if search_params[:user_name].present?
+      users = User.where("#{ENV['USER_NAME_ATTRIBUTE']} LIKE ?", "%#{search_params[:user_name]}%")
+      submit_logs = submit_logs.eager_load(visit: :user).where(visit: { user: users })
+    end
+
     submit_logs.preload(visit: :user).map do |submit_log|
       load_log = Matomo::LinkVisitAction.load_log(submit_log)
       Analysis.new(
