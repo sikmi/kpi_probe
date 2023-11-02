@@ -4,10 +4,13 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.ja.js
-import "@hotwired/turbo-rails"
+import { Turbo } from "@hotwired/turbo-rails"
+Turbo.session.drive = false
 import "controllers"
 
-$('.datepicker').datepicker({
-  language:'ja',
-  autoclose: true,
+$(window).on('load',function(){
+  $('.datepicker').datepicker({
+    language:'ja',
+    autoclose: true,
+  });
 });
