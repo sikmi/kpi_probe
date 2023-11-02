@@ -3,7 +3,7 @@
 = form_with url: analysises_path, method: :get, local: true do |f|
   = f.text_field :user_name, value: @search_params[:user_name], placeholder: 'ユーザー名'
   = f.text_field :process_name, value: @search_params[:process_name], placeholder: 'プロセス名'
-  = f.submit '検索', name: nil
+  = f.submit '検索', name: nil, class: 'btn btn-primary'
 table
   thead 
     tr
