@@ -12,6 +12,12 @@ module Matomo
     has_many :link_visit_actions_category, class_name: 'Matomo::LinkVisitAction',
                                            foreign_key: 'idaction_event_category'
 
+    scope :search_process_name, lambda { |process_name|
+      return if process_name.blank?
+
+      where('name LIKE ?', "%#{process_name}%")
+    }
+
     def self.instance_method_already_implemented?(method_name)
       return true if method_name == 'hash'
 

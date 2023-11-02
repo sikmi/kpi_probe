@@ -5,13 +5,20 @@ class Analysis
 
   attr_accessor :created_at, :process_name, :user_name, :time
 
+  DEFAULT_START_DATE = Time.zone.today - 30.days
   TYPE_EVENT_CATEGORY = 10
 
-  def self.all
-    actions = Matomo::Action.where(type: TYPE_EVENT_CATEGORY).where.not('name LIKE ?', '%/%')
+  def self.search(search_params)
+    categories = Matomo::Action.where(type: TYPE_EVENT_CATEGORY).where.not('name LIKE ?', '%/%').search_process_name(search_params[:process_name])
+    submit_logs = Matomo::LinkVisitAction.submit_logs(categories).order(server_time: :desc).search_user_name(search_params[:user_name]).serarch_period(
+      search_params[:start_date]&.to_date || DEFAULT_START_DATE, search_params[:end_date]&.to_date || Time.zone.today
+    )
 
-    submit_logs = Matomo::LinkVisitAction.submit_logs(actions).order(server_time: :desc)
-    submit_logs.preload(visit: :user).map do |submit_log|
+    build_analysises(submit_logs)
+  end
+
+  def self.build_analysises(submit_logs)
+    submit_logs.map do |submit_log|
       load_log = Matomo::LinkVisitAction.load_log(submit_log)
       Analysis.new(
         created_at: submit_log.server_time,

@@ -2,6 +2,12 @@
 
 class AnalysisesController < ApplicationController
   def index
-    @analysises = Analysis.all
+    @search_params = search_params
+    @default_start_date = Analysis::DEFAULT_START_DATE
+    @analysises = Analysis.search(search_params)
+  end
+
+  def search_params
+    params.permit(:user_name, :process_name, :start_date, :end_date)
   end
 end

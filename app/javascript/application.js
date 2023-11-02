@@ -1,3 +1,16 @@
 // Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
+//= require jquery3
+//= require popper
+//= require bootstrap-sprockets
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.ja.js
+import { Turbo } from "@hotwired/turbo-rails"
+Turbo.session.drive = false
 import "controllers"
+
+$(window).on('load',function(){
+  $('.datepicker').datepicker({
+    language:'ja',
+    autoclose: true,
+  });
+});

@@ -14,5 +14,16 @@ module Matomo
     scope :submit_logs, ->(category) { eager_load(:event_category).where(event_category: category).eager_load(:event).where(event: { name: 'Submit' }) }
 
     scope :load_log, ->(submit_log) { eager_load(:action_name).where(action_name: submit_log.action_name).eager_load(:event).where(event: { name: 'Load' }).last }
+
+    scope :search_user_name, lambda { |user_name|
+      return if user_name.blank?
+
+      users = User.where("#{ENV['USER_NAME_ATTRIBUTE']} LIKE ?", "%#{user_name}%")
+      eager_load(visit: :user).where(visit: { user: users })
+    }
+
+    scope :serarch_period, lambda { |start_date, end_date|
+      where(server_time: start_date&.beginning_of_day..end_date&.end_of_day)
+    }
   end
 end
