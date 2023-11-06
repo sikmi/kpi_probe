@@ -23,16 +23,16 @@ class Processs
 
   def self.log_counts(actions)
     actions.map do |action|
-      Matomo::LinkVisitAction.submit_logs(action).count
+      Matomo::LinkVisitAction.finish_logs(action).count
     end
   end
 
   def self.average_times(actions)
     actions.map do |action|
-      submit_logs = Matomo::LinkVisitAction.submit_logs(action)
-      times = submit_logs.map do |submit_log|
-        load_logs = Matomo::LinkVisitAction.load_log(submit_log)
-        submit_log.server_time - load_logs.server_time
+      finish_logs = Matomo::LinkVisitAction.finish_logs(action)
+      times = finish_logs.map do |finish_log|
+        start_logs = Matomo::LinkVisitAction.start_log(finish_log)
+        finish_log.server_time - start_logs.server_time
       end
       times.sum / times.count if times.count.positive?
     end

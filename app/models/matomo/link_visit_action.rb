@@ -11,9 +11,9 @@ module Matomo
     belongs_to :event_category, class_name: 'Matomo::Action', foreign_key: 'idaction_event_category'
     belongs_to :action_name, class_name: 'Matomo::Action', foreign_key: 'idaction_name'
 
-    scope :submit_logs, ->(category) { eager_load(:event_category).where(event_category: category).eager_load(:event).where(event: { name: 'Submit' }) }
+    scope :finish_logs, ->(category) { eager_load(:event_category).where(event_category: category).eager_load(:event).where(event: { name: 'Submit' }) }
 
-    scope :load_log, ->(submit_log) { eager_load(:action_name).where(action_name: submit_log.action_name).eager_load(:event).where(event: { name: 'Load' }).last }
+    scope :start_log, ->(finish_log) { eager_load(:action_name).where(action_name: finish_log.action_name).eager_load(:event).where(event: { name: 'Load' }).last }
 
     scope :search_user_name, lambda { |user_name|
       return if user_name.blank?
