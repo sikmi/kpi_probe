@@ -11,9 +11,7 @@ module Matomo
     belongs_to :event_category, class_name: 'Matomo::Action', foreign_key: 'idaction_event_category'
     belongs_to :action_name, class_name: 'Matomo::Action', foreign_key: 'idaction_name'
 
-    scope :finish_logs, ->(category) { eager_load(:event_category).where(event_category: category).eager_load(:event).where(event: { name: 'Submit' }) }
-
-    scope :start_log, ->(finish_log) { eager_load(:action_name).where(action_name: finish_log.action_name).eager_load(:event).where(event: { name: 'Load' }).last }
+    scope :start_logs, ->(category) { eager_load(:event_category).where(event_category: category).eager_load(:event).where(event: { name: 'Load' }) }
 
     scope :search_user_name, lambda { |user_name|
       return if user_name.blank?
@@ -25,5 +23,9 @@ module Matomo
     scope :serarch_period, lambda { |start_date, end_date|
       where(server_time: start_date&.beginning_of_day..end_date&.end_of_day)
     }
+
+    def self.finish_log(start_log)
+      eager_load(:action_name).where(action_name: start_log.action_name).eager_load(:event).where(event: { name: 'Submit' }).last
+    end
   end
 end
