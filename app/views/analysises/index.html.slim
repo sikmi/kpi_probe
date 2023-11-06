@@ -9,14 +9,14 @@
 table
   thead 
     tr
-      th 完了時間
+      th 作業開始時間
       th プロセス
-      th ユーザー
+      th 作業者
       th 計測時間
   tbody
     - @analysises.each do |analysis|
       tr
-        td = l(analysis.created_at)
+        td = l(analysis.started_at)
         td = analysis.process_name
         td = analysis.user_name 
         td = analysis.time

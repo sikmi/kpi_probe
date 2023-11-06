@@ -3,7 +3,7 @@
 class Analysis
   include ActiveModel::Model
 
-  attr_accessor :created_at, :process_name, :user_name, :time
+  attr_accessor :started_at, :process_name, :user_name, :time
 
   DEFAULT_START_DATE = Time.zone.today - 30.days
   TYPE_EVENT_CATEGORY = 10
@@ -21,7 +21,7 @@ class Analysis
     submit_logs.map do |submit_log|
       load_log = Matomo::LinkVisitAction.load_log(submit_log)
       Analysis.new(
-        created_at: submit_log.server_time,
+        started_at: load_log.server_time,
         process_name: submit_log.event_category.name,
         user_name: submit_log.visit.user.name,
         time: Time.at(submit_log.server_time - load_log.server_time).utc.strftime('%H:%M:%S')
