@@ -18,7 +18,7 @@ class Analysis
   end
 
   def self.build_analysises(start_logs, hide_unfinished)
-    start_logs.map do |start_log|
+    start_logs.eager_load(visit: :user).map do |start_log|
       finish_log = Matomo::LinkVisitAction.finish_log(start_log)
       next if finish_log.nil? && hide_unfinished == '1'
 

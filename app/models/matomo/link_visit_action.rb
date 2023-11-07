@@ -32,7 +32,7 @@ module Matomo
     }
 
     def self.finish_log(start_log)
-      eager_load(:action_name).where('matomo_log_action.name LIKE ?', "%#{start_log.action_name.name}").eager_load(:event).where(event: { name: 'Finish' }).last
+      eager_load(:action_name).where('matomo_log_action.name LIKE ?', "%#{start_log.action_name.name.split('::').last}").eager_load(:event).where(event: { name: 'Finish' }).last
     end
   end
 end
