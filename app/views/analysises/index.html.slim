@@ -6,17 +6,23 @@
   = f.text_field :start_date, value: @search_params[:start_date] || @default_start_date, class: 'datepicker', data: {provide: 'datepicker'}, autocomplete: 'off'
   = f.text_field :end_date, value: @search_params[:end_date] || Time.zone.today, class: 'datepicker', data: {provide: 'datepicker'}, autocomplete: 'off'
   = f.submit '検索', name: nil, class: 'btn btn-primary'
+
+- if @search_params[:hide_unfinished] == '1'
+  = link_to '未完了を表示', analysises_path(@search_params.merge(hide_unfinished: 0)), class: 'btn btn-primary'
+- else
+  = link_to '未完了を非表示', analysises_path(@search_params.merge(hide_unfinished: 1)), class: 'btn btn-primary'
+
 table
   thead 
     tr
-      th 完了時間
+      th 作業開始時間
       th プロセス
-      th ユーザー
+      th 作業者
       th 計測時間
   tbody
     - @analysises.each do |analysis|
       tr
-        td = l(analysis.created_at)
+        td = l(analysis.started_at)
         td = analysis.process_name
         td = analysis.user_name 
         td = analysis.time
