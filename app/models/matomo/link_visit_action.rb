@@ -27,8 +27,15 @@ module Matomo
     scope :search_url, lambda { |url|
       return if url.blank?
 
-      p "matomo_log_action.name LIKE ? %#{url}%"
       joins(:action_name).where('matomo_log_action.name LIKE ?', "%#{url}%")
+    }
+
+    scope :search_logs, lambda { |search_params|
+      search_user_name(search_params[:user_name])
+        .serarch_period(
+          search_params[:start_date]&.to_date || Analysis::DEFAULT_START_DATE, search_params[:end_date]&.to_date || Time.zone.today
+        )
+        .search_url(search_params[:url])
     }
 
     def self.finish_log(start_log)
