@@ -14,12 +14,14 @@ class Analysis
       search_params[:start_date]&.to_date || DEFAULT_START_DATE, search_params[:end_date]&.to_date || Time.zone.today
     )
 
-    build_analysises(start_logs)
+    build_analysises(start_logs, search_params[:hide_unfinished]).compact
   end
 
-  def self.build_analysises(start_logs)
+  def self.build_analysises(start_logs, hide_unfinished)
     start_logs.map do |start_log|
       finish_log = Matomo::LinkVisitAction.finish_log(start_log)
+
+      next if finish_log.nil? && hide_unfinished == '1'
 
       Analysis.new(
         started_at: start_log.server_time,
