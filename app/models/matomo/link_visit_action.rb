@@ -24,6 +24,13 @@ module Matomo
       where(server_time: start_date&.beginning_of_day..end_date&.end_of_day)
     }
 
+    scope :search_url, lambda { |url|
+      return if url.blank?
+
+      p "matomo_log_action.name LIKE ? %#{url}%"
+      joins(:action_name).where('matomo_log_action.name LIKE ?', "%#{url}%")
+    }
+
     def self.finish_log(start_log)
       eager_load(:action_name).where('matomo_log_action.name LIKE ?', "%#{start_log.action_name.name}").eager_load(:event).where(event: { name: 'Finish' }).last
     end

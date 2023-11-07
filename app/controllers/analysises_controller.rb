@@ -8,6 +8,6 @@ class AnalysisesController < ApplicationController
   end
 
   def search_params
-    params.permit(:user_name, :process_name, :start_date, :end_date, :hide_unfinished)
+    params.permit(:user_name, :process_name, :url, :start_date, :end_date, :hide_unfinished)
   end
 end
