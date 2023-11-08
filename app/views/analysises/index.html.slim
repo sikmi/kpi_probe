@@ -13,6 +13,8 @@
 - else
   = link_to '未完了を非表示', analysises_path(@search_params.merge(hide_unfinished: 1)), class: 'btn btn-primary'
 
+= paginate @analysises
+
 table
   thead 
     tr
@@ -29,3 +31,5 @@ table
         td = analysis.user_name 
         td = analysis.url
         td = analysis.time
+
+= paginate @analysises
