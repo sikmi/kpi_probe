@@ -7,6 +7,8 @@
 import { Turbo } from "@hotwired/turbo-rails"
 Turbo.session.drive = false
 import "controllers"
+import "chartkick"
+import "Chart.bundle"
 
 $(window).on('load',function(){
   $('.datepicker').datepicker({
