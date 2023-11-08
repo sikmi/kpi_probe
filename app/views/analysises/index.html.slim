@@ -3,6 +3,7 @@
 = form_with url: analysises_path, method: :get, local: true do |f|
   = f.text_field :user_name, value: @search_params[:user_name], placeholder: 'ユーザー名'
   = f.text_field :process_name, value: @search_params[:process_name], placeholder: 'プロセス名'
+  = f.text_field :url, value: @search_params[:url], placeholder: 'URL'
   = f.text_field :start_date, value: @search_params[:start_date] || @default_start_date, class: 'datepicker', data: {provide: 'datepicker'}, autocomplete: 'off'
   = f.text_field :end_date, value: @search_params[:end_date] || Time.zone.today, class: 'datepicker', data: {provide: 'datepicker'}, autocomplete: 'off'
   = f.submit '検索', name: nil, class: 'btn btn-primary'
@@ -18,6 +19,7 @@ table
       th 作業開始時間
       th プロセス
       th 作業者
+      th URL
       th 計測時間
   tbody
     - @analysises.each do |analysis|
@@ -25,4 +27,5 @@ table
         td = l(analysis.started_at)
         td = analysis.process_name
         td = analysis.user_name 
+        td = analysis.url
         td = analysis.time
