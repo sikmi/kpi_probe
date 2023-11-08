@@ -4,7 +4,7 @@ class AnalysisesController < ApplicationController
   def index
     @search_params = search_params
     @default_start_date = Analysis::DEFAULT_START_DATE
-    @analysises = Analysis.search(search_params)
+    @analysises = Kaminari.paginate_array(Analysis.search(search_params)).page(params[:page])
   end
 
   def search_params
