@@ -3,6 +3,7 @@
 class Analysis
   include ActiveModel::Model
   include Chartable
+  include Averageable
 
   attr_accessor :started_at, :process_name, :user_name, :time, :url
 

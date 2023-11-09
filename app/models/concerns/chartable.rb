@@ -5,6 +5,8 @@ module Chartable
 
   module ClassMethods
     def chart(analysises)
+      return {} if analysises.blank?
+
       times = analysises.map(&:time)
       times.delete('--:--:--')
       times = times_to_i(times)
