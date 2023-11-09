@@ -1,6 +1,6 @@
-= link_to '分析', analysises_path
+= link_to '分析', analyses_path
 
-= form_with url: analysises_path, method: :get, local: true do |f|
+= form_with url: analyses_path, method: :get, local: true do |f|
   = f.text_field :user_name, value: @search_params[:user_name], placeholder: 'ユーザー名'
   = f.text_field :process_name, value: @search_params[:process_name], placeholder: 'プロセス名'
   = f.text_field :url, value: @search_params[:url], placeholder: 'URL'
@@ -9,11 +9,11 @@
   = f.submit '検索', name: nil, class: 'btn btn-primary'
 
 - if @search_params[:hide_unfinished] == '1'
-  = link_to '未完了を表示', analysises_path(@search_params.merge(hide_unfinished: 0)), class: 'btn btn-primary'
+  = link_to '未完了を表示', analyses_path(@search_params.merge(hide_unfinished: 0)), class: 'btn btn-primary'
 - else
-  = link_to '未完了を非表示', analysises_path(@search_params.merge(hide_unfinished: 1)), class: 'btn btn-primary'
+  = link_to '未完了を非表示', analyses_path(@search_params.merge(hide_unfinished: 1)), class: 'btn btn-primary'
 
-= paginate @analysises
+= paginate @analyses
 
 table
   thead 
@@ -24,7 +24,7 @@ table
       th URL
       th 計測時間
   tbody
-    - @analysises.each do |analysis|
+    - @analyses.each do |analysis|
       tr
         td = l(analysis.started_at)
         td = analysis.process_name
@@ -32,7 +32,7 @@ table
         td = analysis.url
         td = analysis.time
 
-= paginate @analysises
+= paginate @analyses
 
 = column_chart @chart,  width: "500px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
 

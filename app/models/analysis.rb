@@ -15,12 +15,12 @@ class Analysis
       categories = Matomo::Action.where(type: TYPE_EVENT_CATEGORY).where.not('name LIKE ?', '%/%').search_process_name(search_params[:process_name])
       start_logs = Matomo::LinkVisitAction.start_logs(categories).order(server_time: :desc).search_logs(search_params)
 
-      build_analysises(start_logs, search_params[:hide_unfinished]).compact
+      build_analyses(start_logs, search_params[:hide_unfinished]).compact
     end
 
     private
 
-    def build_analysises(start_logs, hide_unfinished)
+    def build_analyses(start_logs, hide_unfinished)
       start_logs.eager_load(visit: :user).map do |start_log|
         finish_log = Matomo::LinkVisitAction.finish_log(start_log)
         next if finish_log.nil? && hide_unfinished == '1'
