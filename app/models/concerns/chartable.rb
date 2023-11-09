@@ -4,10 +4,10 @@ module Chartable
   extend ActiveSupport::Concern
 
   module ClassMethods
-    def chart(analysises)
-      return {} if analysises.blank?
+    def chart(analyses)
+      return {} if analyses.blank?
 
-      times = analysises.map(&:time)
+      times = analyses.map(&:time)
       times.delete('--:--:--')
       times = times_to_i(times)
       indicaters = indicaters(times)
