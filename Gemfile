@@ -9,6 +9,7 @@ gem 'rails', '~> 7.1.1'
 gem 'bootsnap', require: false
 gem 'bootstrap'
 gem 'bootstrap-datepicker-rails'
+gem 'chartkick'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'jquery-rails'
