@@ -35,3 +35,17 @@ table
 = paginate @analysises
 
 = column_chart @chart,  width: "500px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
+
+div 
+  div 平均作業時間
+  div = @average_time
+div 
+  div 合計作業件数
+  div = @total_count.to_formatted_s(:delimited)
+div
+  div 未完了数
+  div = @unfinished_count.to_formatted_s(:delimited)
+div
+  div 未完了率
+  div ="#{@unfinished_rate} %"
+  
