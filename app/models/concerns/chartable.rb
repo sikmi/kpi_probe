@@ -18,6 +18,8 @@ module Chartable
       chart
     end
 
+    private
+
     def indicaters(times)
       indicaters = []
       10.times do |i|
