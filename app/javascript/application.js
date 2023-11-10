@@ -17,4 +17,16 @@ $(window).on('load',function(){
     language:'ja',
     autoclose: true,
   });
-});
+
+  $('.select-user').select2({
+    placeholder: 'ユーザー名',
+    width: 200,
+    allowClear: true
+  });
+
+  $('.select-process').select2({
+    placeholder: 'プロセス名',
+    width: 200,
+    allowClear: true
+  });
+}); 
