@@ -12,7 +12,7 @@ module Analyses
     private
 
     def search_params
-      params.permit(:user_name, :process_name, :url, :start_date, :end_date, :hide_unfinished)
+      params.permit(:url, :start_date, :end_date, :hide_unfinished, user_name: [], process_name: [])
     end
 
     def generate_csv(analyses)

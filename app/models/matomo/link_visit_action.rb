@@ -14,9 +14,11 @@ module Matomo
     scope :start_logs, ->(category) { eager_load(:event_category).where(event_category: category).eager_load(:event).where(event: { name: 'Start' }) }
 
     scope :search_user_name, lambda { |user_name|
-      return if user_name.blank?
+      return if user_name.nil? || user_name[1].nil?
 
-      users = User.where("#{ENV['USER_NAME_ATTRIBUTE']} LIKE ?", "%#{user_name}%")
+      params = {}
+      params[ENV['USER_NAME_ATTRIBUTE']] = user_name
+      users = User.where(**params)
       eager_load(visit: :user).where(visit: { user: users })
     }
 

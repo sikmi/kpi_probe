@@ -17,12 +17,12 @@ gem 'kaminari'
 gem 'mysql2', '~> 0.5'
 gem 'puma', '>= 5.0'
 gem 'sassc-rails'
+gem 'select2-rails'
 gem 'slim-rails'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
 gem 'turbo-rails'
 gem 'tzinfo-data', platforms: %i[windows jruby]
-gem 'select2-rails'
 
 group :development, :test do
   gem 'debug', platforms: %i[mri windows]
