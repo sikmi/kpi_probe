@@ -4,6 +4,8 @@
 //= require bootstrap-sprockets
 //= require bootstrap-datepicker/core
 //= require bootstrap-datepicker/locales/bootstrap-datepicker.ja.js
+//= require select2
+//= require select2_locale_"ja"
 import { Turbo } from "@hotwired/turbo-rails"
 Turbo.session.drive = false
 import "controllers"
