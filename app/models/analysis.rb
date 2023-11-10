@@ -8,11 +8,10 @@ class Analysis
   attr_accessor :started_at, :process_name, :user_name, :time, :url
 
   DEFAULT_START_DATE = Time.zone.today - 30.days
-  TYPE_EVENT_CATEGORY = 10
 
   class << self
     def search(search_params)
-      categories = Matomo::Action.where(type: TYPE_EVENT_CATEGORY).where.not('name LIKE ?', '%/%').search_process_name(search_params[:process_name])
+      categories = Matomo::Action.categories.search_process_name(search_params[:process_name])
       start_logs = Matomo::LinkVisitAction.start_logs(categories).order(server_time: :desc).search_logs(search_params)
 
       build_analyses(start_logs, search_params[:hide_unfinished]).compact
