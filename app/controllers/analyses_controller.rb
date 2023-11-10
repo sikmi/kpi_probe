@@ -16,7 +16,7 @@ class AnalysesController < ApplicationController
   private
 
   def search_params
-    params.permit(:user_name, :process_name, :url, :start_date, :end_date, :hide_unfinished)
+    params.permit(:url, :start_date, :end_date, :hide_unfinished, :page, user_name: [], process_name: [])
   end
 
   def set_params
