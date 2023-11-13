@@ -1,0 +1,10 @@
+header
+  .p-3.header
+    .d-flex.flex-wrap.align-items-center.justify-content-center.justify-content-lg-start
+      = link_to analyses_path do 
+        = image_tag 'logo.png', width:150, height: 50, class: 'navbar-brand'
+      ul.nav
+        li.nav-item
+          = link_to 'トップ', analyses_path, class: 'nav-link selected'
+        li.nav-item 
+          = link_to 'プロセス一覧', root_path, class: 'nav-link'  

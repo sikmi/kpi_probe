@@ -1,5 +1,3 @@
-= link_to '分析', analyses_path
-
 = form_with url: analyses_path, method: :get, local: true do |f|
   = f.collection_select :user_name, User.with_logs, :name, :name, {include_blank: 'ユーザー名', selected: @search_params[:user_name], multiple: true }, class: 'select-user'
   = f.collection_select :process_name, Matomo::Action.categories, :name, :name, { selected: @search_params[:process_name], multiple: true }, class: 'select-process'
