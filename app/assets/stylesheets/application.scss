@@ -14,7 +14,10 @@
  *= require_self
  *= require bootstrap-datepicker
  *= require select2
+ *= require font-awesome
  */
 @import "bootstrap";
+@import "font-awesome";
 @import 'shared/header';
 @import 'analyses/search';
+@import 'parts/button'

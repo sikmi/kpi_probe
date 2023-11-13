@@ -10,7 +10,7 @@
 
   .form-container
     .form-title = 'URL'
-    = f.text_field :url, value: @search_params[:url], placeholder: 'URL'
+    = f.text_field :url, value: @search_params[:url], placeholder: 'URL', class: 'input-form'
 
   .form-container
     .form-title = '期間'
@@ -19,7 +19,9 @@
     = f.text_field :end_date, value: @search_params[:end_date] || Time.zone.today, class: 'datepicker', data: {provide: 'datepicker'}, autocomplete: 'off'
 
   .form-container
-    = f.submit '検索', name: nil, class: 'btn btn-primary'
+    = button_tag type: 'submit', name: nil, class: 'button' do
+      i.fa.fa-search
+      |  検索
 
 
 - if @search_params[:hide_unfinished] == '1'

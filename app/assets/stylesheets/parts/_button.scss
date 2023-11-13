@@ -1,0 +1,17 @@
+.button {
+  height: 40px;
+  width: 80px;
+  color: white;
+  background-color: #606087;
+  border: none;
+  border-radius: 20px;
+  &:hover {
+    background-color: #49496E;
+  }
+  &:active {
+    background-color: #393959;
+  }
+  :focus {
+    border: 1px solid red;
+  }
+}
