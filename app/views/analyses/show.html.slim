@@ -1,38 +1,47 @@
 = render 'analyses/search'
-= paginate @analyses
+.main-content
+  .pagenate-container
+    = paginate @analyses
+    p = "全#{@total_count}件中 #{@analyses.count}件を表示"
+    .unfinished
+      - if @search_params[:hide_unfinished] == '1'
+        = link_to '未完了を表示', analyses_path(@search_params.merge(hide_unfinished: 0)), class: 'btn btn-primary'
+      - else
+        = link_to '未完了を非表示', analyses_path(@search_params.merge(hide_unfinished: 1)), class: 'btn btn-primary'
 
-table
-  thead 
-    tr
-      th 作業開始時間
-      th プロセス
-      th 作業者
-      th URL
-      th 計測時間
-  tbody
-    - @analyses.each do |analysis|
+
+  table
+    thead
       tr
-        td = l(analysis.started_at)
-        td = analysis.process_name
-        td = analysis.user_name 
-        td = analysis.url
-        td = analysis.time
+        th 作業開始時間
+        th プロセス
+        th 作業者
+        th URL
+        th 計測時間
+    tbody
+      - @analyses.each do |analysis|
+        tr
+          td = l(analysis.started_at)
+          td = analysis.process_name
+          td = analysis.user_name 
+          td = analysis.url
+          td = analysis.time
 
-= paginate @analyses
+  = paginate @analyses
 
-= column_chart @chart,  width: "500px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
+  = column_chart @chart,  width: "500px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
 
-div 
-  div 平均作業時間
-  div = @average_time
-div 
-  div 合計作業件数
-  div = @total_count.to_formatted_s(:delimited)
-div
-  div 未完了数
-  div = @unfinished_count.to_formatted_s(:delimited)
-div
-  div 未完了率
-  div ="#{@unfinished_rate} %"
-  
-= link_to 'CSV出力', new_analyses_downloads_path(@search_params), class: 'btn btn-primary'
+  div 
+    div 平均作業時間
+    div = @average_time
+  div 
+    div 合計作業件数
+    div = @total_count.to_formatted_s(:delimited)
+  div
+    div 未完了数
+    div = @unfinished_count.to_formatted_s(:delimited)
+  div
+    div 未完了率
+    div ="#{@unfinished_rate} %"
+
+  = link_to 'CSV出力', new_analyses_downloads_path(@search_params), class: 'btn btn-primary'

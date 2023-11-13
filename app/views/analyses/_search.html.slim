@@ -22,9 +22,3 @@
     = button_tag type: 'submit', name: nil, class: 'button' do
       i.fa.fa-search
       |  検索
-
-
-- if @search_params[:hide_unfinished] == '1'
-  = link_to '未完了を表示', analyses_path(@search_params.merge(hide_unfinished: 0)), class: 'btn btn-primary'
-- else
-  = link_to '未完了を非表示', analyses_path(@search_params.merge(hide_unfinished: 1)), class: 'btn btn-primary'
