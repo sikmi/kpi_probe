@@ -1,10 +1,26 @@
-= form_with url: analyses_path, method: :get, local: true do |f|
-  = f.collection_select :user_name, User.with_logs, :name, :name, {include_blank: 'ユーザー名', selected: @search_params[:user_name], multiple: true }, class: 'select-user'
-  = f.collection_select :process_name, Matomo::Action.categories, :name, :name, { selected: @search_params[:process_name], multiple: true }, class: 'select-process'
-  = f.text_field :url, value: @search_params[:url], placeholder: 'URL'
-  = f.text_field :start_date, value: @search_params[:start_date] || @default_start_date, class: 'datepicker', data: {provide: 'datepicker'}, autocomplete: 'off'
-  = f.text_field :end_date, value: @search_params[:end_date] || Time.zone.today, class: 'datepicker', data: {provide: 'datepicker'}, autocomplete: 'off'
-  = f.submit '検索', name: nil, class: 'btn btn-primary'
+
+= form_with url: analyses_path, method: :get, local: true, class: 'search-form' do |f|
+  .form-container
+    .form-title = 'プロセス'
+    = f.collection_select :user_name, User.with_logs, :name, :name, {include_blank: 'ユーザー名', selected: @search_params[:user_name], multiple: true }, class: 'select-user select'
+
+  .form-container
+    .form-title = '作業者'
+    = f.collection_select :process_name, Matomo::Action.categories, :name, :name, { selected: @search_params[:process_name], multiple: true }, class: 'select-process select'
+
+  .form-container
+    .form-title = 'URL'
+    = f.text_field :url, value: @search_params[:url], placeholder: 'URL'
+
+  .form-container
+    .form-title = '期間'
+    = f.text_field :start_date, value: @search_params[:start_date] || @default_start_date, class: 'datepicker', data: {provide: 'datepicker'}, autocomplete: 'off'
+    .tilde = '〜'
+    = f.text_field :end_date, value: @search_params[:end_date] || Time.zone.today, class: 'datepicker', data: {provide: 'datepicker'}, autocomplete: 'off'
+
+  .form-container
+    = f.submit '検索', name: nil, class: 'btn btn-primary'
+
 
 - if @search_params[:hide_unfinished] == '1'
   = link_to '未完了を表示', analyses_path(@search_params.merge(hide_unfinished: 0)), class: 'btn btn-primary'

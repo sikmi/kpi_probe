@@ -1,0 +1,37 @@
+.search-form {
+  padding: 20px 0 20px 0;
+  background-color: #F7F7FA;
+  display: flex;
+  width: 100%;
+  .form-container {
+    display: flex;
+    height: 40px;
+    margin-left: 20px;
+    .form-title {
+      font-size: 14px;
+      line-height: 40px;
+      margin-right: 10px;
+    }
+    .tilde {
+      font-size: 14px;
+      line-height: 40px;
+      margin: 0 5px 0 5px;
+    }
+    .datepicker {
+      width: 130px;
+    }
+  }
+}
+
+.select2-container {
+  .select2-selection__rendered {
+    font-size: 14px;
+    .select2-search {
+      line-height: 30px;
+      padding-left: 10px;
+    }
+  }
+  .select2-results__options {
+    font-size: 12px;
+  }
+}
