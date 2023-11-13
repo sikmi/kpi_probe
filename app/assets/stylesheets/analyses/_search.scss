@@ -17,13 +17,22 @@
       line-height: 40px;
       margin: 0 5px 0 5px;
     }
+    .input-form {
+      height: 40px;
+      border: 1px solid #aaa;
+      border-radius: 5px;
+    }
     .datepicker {
       width: 130px;
+      border: 1px solid #aaa;
     }
   }
 }
 
 .select2-container {
+  .select2-selection {
+    height: 40px;
+  }
   .select2-selection__rendered {
     font-size: 14px;
     .select2-search {
