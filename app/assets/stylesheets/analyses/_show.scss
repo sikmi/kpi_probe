@@ -1,24 +1,29 @@
-.main-content {
-  margin: 0 20px 0 20px;
-  .pagenate-container {
+.pagenate-container {
+  margin: 20px;
+  height: 40px;
+  display: flex;
+  &.under {
     margin: 20px 0 20px 0;
-    height: 40px;
+  }
+  p {
+    line-height: 40px;
+    color: #1E1E338C
+  }
+  .pagination {
+    margin-right: 20px;
+  }
+  .unfinished {
+    margin-left: 20px;
     display: flex;
-    p {
-      line-height: 40px;
-      color: #1E1E338C
-    }
-    .pagination {
-      margin-right: 20px;
-    }
-    .unfinished {
-      margin-left: 20px;
-      display: flex;
-      line-height: 40px;
-      a {
-        padding-top: 7px;
-        margin-left: 10px;
-      }
+    line-height: 40px;
+    a {
+      padding-top: 7px;
+      margin-left: 10px;
     }
   }
+}
+.main-content {
+  margin: 0 20px 0 20px;
+  display: flex;
+  
 }

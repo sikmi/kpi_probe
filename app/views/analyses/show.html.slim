@@ -1,6 +1,6 @@
 = render 'analyses/search'
-.main-content
-  .pagenate-container
+
+.pagenate-container
     = paginate @analyses
     p = "全#{@total_count}件中 #{@analyses.count}件を表示"
     .unfinished
@@ -15,25 +15,6 @@
           .toggle.checked
             input type="checkbox" name="check"
 
-
+.main-content
   = render 'analyses/table'
-
-  .pagenate-container
-    = paginate @analyses
-
-  = column_chart @chart,  width: "500px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
-
-  div 
-    div 平均作業時間
-    div = @average_time
-  div 
-    div 合計作業件数
-    div = @total_count.to_formatted_s(:delimited)
-  div
-    div 未完了数
-    div = @unfinished_count.to_formatted_s(:delimited)
-  div
-    div 未完了率
-    div ="#{@unfinished_rate} %"
-
-  = link_to 'CSV出力', new_analyses_downloads_path(@search_params), class: 'btn btn-primary'
+  = render 'analyses/data'
