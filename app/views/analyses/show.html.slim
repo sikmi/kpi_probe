@@ -16,22 +16,7 @@
             input type="checkbox" name="check"
 
 
-  table
-    thead
-      tr
-        th 作業開始時間
-        th プロセス
-        th 作業者
-        th URL
-        th 計測時間
-    tbody
-      - @analyses.each do |analysis|
-        tr
-          td = l(analysis.started_at)
-          td = analysis.process_name
-          td = analysis.user_name 
-          td = analysis.url
-          td = analysis.time
+  = render 'analyses/table'
 
   .pagenate-container
     = paginate @analyses

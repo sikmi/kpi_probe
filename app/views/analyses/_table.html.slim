@@ -1,0 +1,17 @@
+.table-container
+  table
+    thead
+      tr.header
+        th.started_at.selected 作業開始時間
+        th.time 計測時間
+        th.process_name プロセス
+        th.url URL
+        th.user_name 作業者
+    tbody
+      - @analyses.each do |analysis|
+        tr
+          td.started_at = l(analysis.started_at)
+          td.time = analysis.time
+          td.process_name = analysis.process_name
+          td.url = analysis.url
+          td.user_name = analysis.user_name 
