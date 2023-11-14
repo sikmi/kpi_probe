@@ -33,7 +33,8 @@
           td = analysis.url
           td = analysis.time
 
-  = paginate @analyses
+  .pagenate-container
+    = paginate @analyses
 
   = column_chart @chart,  width: "500px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
 
