@@ -1,6 +1,7 @@
 = render 'analyses/search'
 
 .pagenate-container
+  .left-content
     = paginate @analyses
     p = "全#{@total_count}件中 #{@analyses.count}件を表示"
     .unfinished
@@ -14,6 +15,10 @@
         = link_to analyses_path(@search_params.merge(hide_unfinished: 1)) do 
           .toggle.checked
             input type="checkbox" name="check"
+  .right-content
+    = link_to new_analyses_downloads_path(@search_params), class: 'btn button outline wide' do 
+      |  CSV エクスポート 
+      i.fa.fa-download
 
 .main-content
   = render 'analyses/table'

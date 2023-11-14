@@ -2,28 +2,34 @@
   margin: 20px;
   height: 40px;
   display: flex;
+  justify-content: space-between;
   &.under {
     margin: 20px 0 20px 0;
   }
-  p {
-    line-height: 40px;
-    color: #1E1E338C
-  }
-  .pagination {
-    margin-right: 20px;
-  }
-  .unfinished {
-    margin-left: 20px;
+  .left-content {
     display: flex;
-    line-height: 40px;
-    a {
-      padding-top: 7px;
-      margin-left: 10px;
+    p {
+      line-height: 40px;
+      color: #1E1E338C
     }
+    .pagination {
+      margin-right: 20px;
+    }
+    .unfinished {
+      margin-left: 20px;
+      display: flex;
+      line-height: 40px;
+      a {
+        padding-top: 7px;
+        margin-left: 10px;
+      }
+    }
+  }
+  .right-content {
+    margin-right: 40px;
   }
 }
 .main-content {
   margin: 0 20px 0 20px;
   display: flex;
-  
 }

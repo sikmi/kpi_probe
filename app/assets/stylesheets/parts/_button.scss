@@ -12,6 +12,27 @@
     background-color: #393959;
   }
   :focus {
-    border: 1px solid red;
+    background-color: #606087;
+    border: 1px solid #49496E;
+  }
+
+  &.outline {
+    background-color: white;
+    color: #262640;
+    border: 1px solid #49496E;
+    &:hover {
+      background-color: #49496E;
+      color: white
+    }
+    &:active {
+      background-color: #393959
+    }
+    &:focus {
+      background-color: #606087;
+      border: 1px solid #49496E;
+    }
+  }
+  &.wide {
+    width: 180px;
   }
 }
