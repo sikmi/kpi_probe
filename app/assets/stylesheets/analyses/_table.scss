@@ -1,5 +1,5 @@
 .table-container {
-	width: 70%;
+	width: 960px;
   table {
     width: 100%;
     border-collapse: collapse;
@@ -44,6 +44,30 @@
           }
           &.time {
             text-align: right;
+          }
+          &.empty {
+            text-align: center;
+            height: 800px;
+            background: #FFFFFF;
+            color: #1E1E338C;
+            
+            .empty-container {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              .empty-image {
+                width: 240px;
+                height: 212px;
+              }
+              p {
+                line-height: 10px;
+                &.bold {
+                  margin-top: 30px;
+                  margin-bottom: 20px;
+                  font-weight: bold;
+                }
+              }
+            }
           }
         }
       }

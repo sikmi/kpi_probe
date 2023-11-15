@@ -1,12 +1,27 @@
 .data-container {
-  width: 630px;
-  padding: 40px;
+  width: 440px;
+  margin-top: 40px;
+  padding: 25px;
   display: flex;
   flex-direction: column;
   .chart {
     background-color: #F7F7FA;
-    height: 500px;
-    width: 550px;
+    height: 420px;
+    width: 390px;
+    padding-left: 15px;
+    .desc {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #1E1E338C;
+    }
+    img.empty {
+      margin-left: 5px;
+      margin-top: 30px;
+      height: 280px;
+      width: 350px;
+      
+    }
   }
   .box {
     background-color: #F7F7FA;
@@ -19,6 +34,9 @@
     }
     .data {
       font-size: 40px;
+      &.empty {
+        color: #1E1E3340;
+      }
     }
   }
   .column {
