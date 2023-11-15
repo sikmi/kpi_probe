@@ -1,0 +1,63 @@
+.table-container {
+	width: 70%;
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    thead {
+      tr {
+        th {
+          color: #1E1E338C;
+          padding: 20px;
+          border-bottom: 2px solid #1E1E3326;
+          &.selected {
+            border-bottom: 2px solid #1E1E33;
+            color: #1E1E33BF;
+          }
+        }
+        &.header {
+          background: #FFFFFF
+        }
+        .started_at {
+          width: 180px;
+        }
+        .time {
+          width: 100px;
+        }
+        .process_name {
+          width: 200px;
+        }
+        .url {
+          width: 400px;
+        }
+        .user_name {
+          width: 120px;
+        }
+      }
+    }
+    tbody {
+      tr {
+        td{
+          padding: 10px;
+          &.started_at {
+            text-align: right;
+          }
+          &.time {
+            text-align: right;
+          }
+        }
+      }
+      tr:nth-child(even) {
+        background: #FFFFFF;
+        
+      }
+      tr:nth-child(odd) {
+        background: #F7F7FA;
+      }
+    }
+  }
+}
+
+
+
+
+

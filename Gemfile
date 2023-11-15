@@ -10,6 +10,7 @@ gem 'bootsnap', require: false
 gem 'bootstrap'
 gem 'bootstrap-datepicker-rails'
 gem 'chartkick'
+gem 'font-awesome-rails'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'jquery-rails'

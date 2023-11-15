@@ -114,6 +114,8 @@ GEM
     erubi (1.12.0)
     execjs (2.9.1)
     ffi (1.16.3)
+    font-awesome-rails (4.7.0.8)
+      railties (>= 3.2, < 8.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     i18n (1.14.1)
@@ -334,6 +336,7 @@ DEPENDENCIES
   capybara
   chartkick
   debug
+  font-awesome-rails
   importmap-rails
   jbuilder
   jquery-rails

@@ -1,0 +1,17 @@
+.data-container
+  .chart
+    = column_chart @chart,  width: "500px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
+
+  .box
+    .title 平均作業時間
+    .data = @average_time
+  .box
+    .title 合計作業件数
+    .data = @total_count.to_formatted_s(:delimited)
+  .column
+    .box.first
+      .title 未完了数
+      .data = @unfinished_count.to_formatted_s(:delimited)
+    .box
+      .title 未完了率
+      .data ="#{@unfinished_rate} %"

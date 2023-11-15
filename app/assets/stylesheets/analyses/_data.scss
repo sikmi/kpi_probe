@@ -1,0 +1,35 @@
+.data-container {
+  width: 630px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  .chart {
+    background-color: #F7F7FA;
+    height: 500px;
+    width: 550px;
+  }
+  .box {
+    background-color: #F7F7FA;
+    margin-top: 20px;
+    height: 100px;
+    padding: 15px;
+    .title {
+      font-weight: bold;
+      color: #1E1E338C;
+    }
+    .data {
+      font-size: 40px;
+    }
+  }
+  .column {
+    display: flex;
+    justify-content: space-between;
+    .box {
+      width: 50%;
+      margin-left: 20px;
+      &.first {
+        margin-left: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.header {
+  background-color: #393959;
+}
+.nav {
+  margin-left: 50px;
+  .nav-item {
+    margin-right: 20px;
+  }
+  .nav-link {
+    color: #8f8f8f;
+    font-weight: bold;
+    &.selected{
+      color: #FFFFFF;
+    }
+  }
+}

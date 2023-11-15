@@ -1,0 +1,38 @@
+.button {
+  height: 40px;
+  width: 80px;
+  color: white;
+  background-color: #606087;
+  border: none;
+  border-radius: 20px;
+  &:hover {
+    background-color: #49496E;
+  }
+  &:active {
+    background-color: #393959;
+  }
+  :focus {
+    background-color: #606087;
+    border: 1px solid #49496E;
+  }
+
+  &.outline {
+    background-color: white;
+    color: #262640;
+    border: 1px solid #49496E;
+    &:hover {
+      background-color: #49496E;
+      color: white
+    }
+    &:active {
+      background-color: #393959
+    }
+    &:focus {
+      background-color: #606087;
+      border: 1px solid #49496E;
+    }
+  }
+  &.wide {
+    width: 180px;
+  }
+}
