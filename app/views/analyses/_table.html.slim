@@ -1,19 +1,30 @@
 .table-container
-  table
-    thead
-      tr.header
-        th.started_at.selected 作業開始時間
-        th.time 計測時間
-        th.process_name プロセス
-        th.url URL
-        th.user_name 作業者
-    tbody
-      - @analyses.each do |analysis|
-        tr
-          td.started_at = l(analysis.started_at)
-          td.time = analysis.time
-          td.process_name = analysis.process_name
-          td.url = analysis.url
-          td.user_name = analysis.user_name 
-  .pagenate-container.under
-    = paginate @analyses
+    table
+      thead
+        tr.header
+          th.started_at.selected 作業開始時間
+          th.time 計測時間
+          th.process_name プロセス
+          th.url URL
+          th.user_name 作業者
+
+      tbody
+        - if @analyses.present?
+          - @analyses.each do |analysis|
+            tr
+              td.started_at = l(analysis.started_at)
+              td.time = analysis.time
+              td.process_name = analysis.process_name
+              td.url = analysis.url
+              td.user_name = analysis.user_name 
+        - else
+          tr
+            td.empty colspan="5"
+              .empty-container
+                = image_tag 'empty.png', class: 'empty-image'
+                p.bold = '表示できる記録がありません'
+                p = '指定の検索条件に該当する記録が見つかりませんでした。'
+                p = '検索条件を緩やかにして、もう一度お試しください。'
+
+    .pagenate-container.under
+      = paginate @analyses
