@@ -2,16 +2,20 @@
     table
       thead
         tr.header
-          th.started_at.selected 
+          th class="started_at #{'selected' if @search_params[:order_by] != 'time'}"
             .sort
               = '作業開始時間'
-              - if @search_params[:order_by] == 'started_at' && @search_params[:sort] == 'asc'
+              - if (@search_params[:order_by] == 'started_at' && @search_params[:sort] == 'asc') || @search_params[:order_by] == 'time'
                 = link_to analyses_path(@search_params.merge(order_by: 'started_at', sort: :desc)), class: 'selected' do
-                  = fa_icon 'sort-up' 
+                  - if @search_params[:order_by] == 'time'
+                    = fa_icon 'sort'
+                  - else
+                    = fa_icon 'sort-up'
               - else
                 = link_to analyses_path(@search_params.merge(order_by: 'started_at', sort: :asc)), class: 'selected' do
                   = fa_icon 'sort-down'
-          th.time 
+                  
+          th class="time #{'selected' if @search_params[:order_by] == 'time'}"
             .sort
               = '計測時間'
               - if @search_params[:order_by] == 'time' && @search_params[:sort] == 'asc'
@@ -19,7 +23,10 @@
                   = fa_icon 'sort-up' 
               - else
                 = link_to analyses_path(@search_params.merge(order_by: 'time', sort: :asc)), class: 'selected' do
-                  = fa_icon 'sort-down'
+                  - if @search_params[:order_by] == 'time'
+                    = fa_icon 'sort-down'
+                  - else
+                    = fa_icon 'sort'
           th.process_name プロセス
           th.url URL
           th.user_name 作業者
