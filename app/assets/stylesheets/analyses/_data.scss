@@ -7,6 +7,13 @@
     background-color: #F7F7FA;
     height: 500px;
     width: 550px;
+    img.empty {
+      margin-left: 10px;
+      margin-top: 60px;
+      height: 400px;
+      width: 520px;
+      
+    }
   }
   .box {
     background-color: #F7F7FA;
@@ -19,6 +26,9 @@
     }
     .data {
       font-size: 40px;
+      &.empty {
+        color: #1E1E3340;
+      }
     }
   }
   .column {

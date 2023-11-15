@@ -1,17 +1,32 @@
 .data-container
   .chart
-    = column_chart @chart,  width: "500px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
+    - if @chart.present?
+      = column_chart @chart,  width: "500px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
+    - else
+      = image_tag 'empty_graph.png', class: 'empty'
 
   .box
     .title 平均作業時間
-    .data = @average_time
+    - if @analyses.present?
+      .data = @average_time
+    - else
+      .data.empty = '•••'
   .box
     .title 合計作業件数
-    .data = @total_count.to_formatted_s(:delimited)
+    - if @analyses.present?
+      .data = @total_count.to_formatted_s(:delimited)
+    - else
+      .data.empty = '•••'
   .column
     .box.first
       .title 未完了数
-      .data = @unfinished_count.to_formatted_s(:delimited)
+      - if @analyses.present?
+        .data = @unfinished_count.to_formatted_s(:delimited)
+      - else
+        .data.empty = '•••'
     .box
       .title 未完了率
-      .data ="#{@unfinished_rate} %"
+      - if @analyses.present?
+        .data = @unfinished_rate.to_s + '%'
+      - else
+        .data.empty = '•••'
