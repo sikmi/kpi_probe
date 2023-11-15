@@ -2,7 +2,14 @@
     table
       thead
         tr.header
-          th.started_at.selected 作業開始時間
+          th.started_at.selected 
+            = '作業開始時間'
+            - if @search_params[:order_by] == 'started_at' && @search_params[:sort] == 'asc'
+              = link_to analyses_path(@search_params.merge(order_by: 'started_at', sort: :desc)), class: 'selected' do
+                = fa_icon 'sort-up' 
+            - else
+              = link_to analyses_path(@search_params.merge(order_by: 'started_at', sort: :asc)), class: 'selected' do
+                = fa_icon 'sort-down'
           th.time 計測時間
           th.process_name プロセス
           th.url URL

@@ -20,6 +20,14 @@
         }
         .started_at {
           width: 180px;
+          display: flex;
+          justify-content: space-between;
+          a {
+            color: #1E1E338C;
+            &.selected {
+              color: #1E1E33BF;
+            }
+          }
         }
         .time {
           width: 100px;

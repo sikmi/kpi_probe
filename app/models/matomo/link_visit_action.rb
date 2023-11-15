@@ -40,6 +40,14 @@ module Matomo
         .search_url(search_params[:url])
     }
 
+    scope :order_by_server_time, lambda { |order_by, sort|
+      if order_by.nil? || order_by != 'started_at'
+        order(server_time: :desc)
+      else
+        order(server_time: sort)
+      end
+    }
+
     def self.finish_log(start_log)
       eager_load(:action_name).where('matomo_log_action.name LIKE ?', "%#{start_log.action_name.name.split('::').last}").eager_load(:event).where(event: { name: 'Finish' }).last
     end

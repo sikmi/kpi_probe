@@ -12,7 +12,7 @@ class Analysis
   class << self
     def search(search_params)
       categories = Matomo::Action.categories.search_process_name(search_params[:process_name])
-      start_logs = Matomo::LinkVisitAction.start_logs(categories).order(server_time: :desc).search_logs(search_params)
+      start_logs = Matomo::LinkVisitAction.start_logs(categories).order_by_server_time(search_params[:order_by], search_params[:sort]).search_logs(search_params)
 
       build_analyses(start_logs, search_params[:hide_unfinished]).compact
     end
