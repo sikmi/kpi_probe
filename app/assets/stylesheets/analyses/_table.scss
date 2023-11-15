@@ -8,7 +8,7 @@
         th {
           color: #1E1E338C;
           white-space: nowrap;
-          padding: 20px;
+          padding: 20px 10px 20px 10px;
           border-bottom: 2px solid #1E1E3326;
           &.selected {
             border-bottom: 2px solid #1E1E33;
@@ -16,21 +16,34 @@
           }
         }
         &.header {
-          background: #FFFFFF
+          background: #FFFFFF;
+          width: 100%;
         }
         .started_at {
           width: 180px;
-          display: flex;
-          justify-content: space-between;
-          a {
-            color: #1E1E338C;
-            &.selected {
-              color: #1E1E33BF;
+          .sort {
+            display: flex;
+            justify-content: space-between;
+            a {
+              color: #1E1E338C;
+              &.selected {
+                color: #1E1E33BF;
+              }
             }
           }
         }
         .time {
-          width: 100px;
+          width: 120px;
+          .sort {
+            display: flex;
+            justify-content: space-between;
+            a {
+              color: #1E1E338C;
+              &.selected {
+                color: #1E1E33BF;
+              }
+            }
+          }
         }
         .process_name {
           width: 200px;
