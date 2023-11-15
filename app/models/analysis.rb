@@ -14,7 +14,7 @@ class Analysis
       categories = Matomo::Action.categories.search_process_name(search_params[:process_name])
       start_logs = Matomo::LinkVisitAction.start_logs(categories).order_by_server_time(search_params[:order_by], search_params[:sort]).search_logs(search_params)
 
-      build_analyses(start_logs, search_params).compact
+      build_analyses(start_logs, search_params)
     end
 
     private
@@ -25,7 +25,7 @@ class Analysis
         next if finish_log.nil? && search_params[:hide_unfinished] == '1'
 
         build_one(start_log, finish_log)
-      end
+      end.compact
 
       return analyses if search_params[:order_by] != 'time'
 
