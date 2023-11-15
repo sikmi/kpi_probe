@@ -5,13 +5,20 @@
   flex-direction: column;
   .chart {
     background-color: #F7F7FA;
-    height: 500px;
+    height: 580px;
     width: 550px;
+    padding-left: 15px;
+    .desc {
+      margin-top: 20px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #1E1E338C;
+    }
     img.empty {
       margin-left: 10px;
       margin-top: 60px;
       height: 400px;
-      width: 520px;
+      width: 500px;
       
     }
   }
