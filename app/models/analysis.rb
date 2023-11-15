@@ -20,16 +20,16 @@ class Analysis
     private
 
     def build_analyses(start_logs, search_params)
-      array = start_logs.eager_load(visit: :user).map do |start_log|
+      analyses = start_logs.eager_load(visit: :user).map do |start_log|
         finish_log = Matomo::LinkVisitAction.finish_log(start_log)
         next if finish_log.nil? && search_params[:hide_unfinished] == '1'
 
         build_one(start_log, finish_log)
       end
 
-      return array if search_params[:order_by] != 'time'
+      return analyses if search_params[:order_by] != 'time'
 
-      order_by_time(array, search_params[:sort])
+      order_by_time(analyses, search_params[:sort])
     end
 
     def build_one(start_log, finish_log)
@@ -42,11 +42,11 @@ class Analysis
       )
     end
 
-    def order_by_time(array, sort)
+    def order_by_time(analyses, sort)
       if sort == 'asc'
-        array.sort_by(&:time)
+        analyses.sort_by(&:time)
       elsif sort == 'desc'
-        array.sort_by(&:time).reverse
+        analyses.sort_by(&:time).reverse
       end
     end
   end
