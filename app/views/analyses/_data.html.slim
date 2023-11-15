@@ -2,7 +2,7 @@
   .chart
     .desc = '表示中の一覧を元に生成'
     - if @chart.present?
-      = column_chart @chart,  width: "480px", height: "500px", xtitle: "時間(分)", ytitle: "件数"
+      = column_chart @chart,  width: "350px", height: "350px", xtitle: "時間(分)", ytitle: "件数"
     - else
       = image_tag 'empty_graph.png', class: 'empty'
 
