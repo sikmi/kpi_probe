@@ -19,14 +19,14 @@ $(window).on('load',function(){
   });
 
   $('.select-user').select2({
-    placeholder: 'ユーザー名',
-    width: 200,
+    placeholder: '全員',
+    width: 250,
     allowClear: true
   });
 
   $('.select-process').select2({
-    placeholder: 'プロセス名',
-    width: 200,
+    placeholder: 'すべて',
+    width: 250,
     allowClear: true
   });
 }); 

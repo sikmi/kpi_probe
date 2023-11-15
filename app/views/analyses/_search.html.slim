@@ -2,11 +2,11 @@
 = form_with url: analyses_path, method: :get, local: true, class: 'search-form' do |f|
   .form-container
     .form-title = 'プロセス'
-    = f.collection_select :user_name, User.with_logs, :name, :name, {include_blank: 'ユーザー名', selected: @search_params[:user_name], multiple: true }, class: 'select-user select'
+    = f.collection_select :process_name, Matomo::Action.categories, :name, :name, { selected: @search_params[:process_name], multiple: true }, class: 'select-process select'
 
   .form-container
     .form-title = '作業者'
-    = f.collection_select :process_name, Matomo::Action.categories, :name, :name, { selected: @search_params[:process_name], multiple: true }, class: 'select-process select'
+    = f.collection_select :user_name, User.with_logs, :name, :name, {include_blank: 'ユーザー名', selected: @search_params[:user_name], multiple: true }, class: 'select-user select'
 
   .form-container
     .form-title = 'URL'

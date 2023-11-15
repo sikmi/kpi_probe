@@ -1,6 +1,7 @@
 .pagenate-container {
   margin: 20px;
   height: 40px;
+  min-width: 1440px;
   display: flex;
   justify-content: space-between;
   &.under {
@@ -30,6 +31,7 @@
   }
 }
 .main-content {
+  min-width: 1440px;
   margin: 0 20px 0 20px;
   display: flex;
 }
