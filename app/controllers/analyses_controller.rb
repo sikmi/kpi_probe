@@ -4,7 +4,7 @@ class AnalysesController < ApplicationController
   before_action :set_params, only: :show
 
   def show
-    analyses = Analysis.search(search_params)
+    analyses = Analysis.search(@search_params)
     @analyses = Kaminari.paginate_array(analyses).page(params[:page]).per(30)
     @chart = Analysis.chart(analyses)
     @total_count = analyses.count
@@ -16,11 +16,20 @@ class AnalysesController < ApplicationController
   private
 
   def search_params
-    params.permit(:url, :start_date, :end_date, :hide_unfinished, :page, user_name: [], process_name: [])
+    params.permit(:url, :start_date, :end_date, :hide_unfinished, :page, :order_by, :sort, user_name: [], process_name: [])
   end
 
   def set_params
-    @search_params = search_params
+    ignore_invalid_sort
     @default_start_date = Analysis::DEFAULT_START_DATE
+  end
+
+  def ignore_invalid_sort
+    copied_params = search_params
+    @search_params = if search_params[:sort] != 'asc' && search_params[:sort] != 'desc'
+                       copied_params.merge(sort: 'desc')
+                     else
+                       copied_params
+                     end
   end
 end
