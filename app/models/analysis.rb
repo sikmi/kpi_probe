@@ -12,16 +12,27 @@ class Analysis
   class << self
     def search(search_params)
       categories = Matomo::Action.categories.search_process_name(search_params[:process_name])
-      start_logs = Matomo::LinkVisitAction.start_logs(categories).order_by_server_time(search_params[:order_by], search_params[:sort]).search_logs(search_params)
 
-      build_analyses(start_logs, search_params)
+      all_logs = Matomo::LinkVisitAction.all_logs(categories)
+                                        .order_by_server_time(search_params[:order_by], search_params[:sort])
+                                        .search_logs(search_params)
+                                        .eager_load(:action_name).eager_load(:event).eager_load(visit: :user)
+
+      build_analyses(all_logs, search_params)
     end
 
     private
 
-    def build_analyses(start_logs, search_params)
-      analyses = start_logs.eager_load(visit: :user).map do |start_log|
-        finish_log = Matomo::LinkVisitAction.finish_log(start_log)
+    def build_analyses(all_logs, search_params)
+      grouped_logs = all_logs.group_by { |log| log.action_name.name.split('::').last }
+      start_event = Matomo::Action.find_by(name: 'Start')
+      finish_event = Matomo::Action.find_by(name: 'Finish')
+
+      analyses = grouped_logs.map do |_key, logs|
+        start_log = logs.find { |log| log.event == start_event }
+        finish_log = logs.find { |log| log.event == finish_event }
+
+        next if start_log.nil?
         next if finish_log.nil? && search_params[:hide_unfinished] == '1'
 
         build_one(start_log, finish_log)
