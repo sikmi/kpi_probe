@@ -2,6 +2,7 @@ AllCops:
   Exclude:
     - "vendor/**/*" # rubocop config/default.yml
     - "db/schema.rb"
+    - "db/dummy_data/**/*"
   DisplayCopNames: true
 
 Metrics/AbcSize: 
