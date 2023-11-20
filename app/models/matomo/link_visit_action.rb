@@ -19,7 +19,7 @@ module Matomo
       params = {}
       params[ENV['USER_NAME_ATTRIBUTE']] = user_name
       users = User.where(**params)
-      where(visit: { user: users })
+      joins(visit: :user).where(visit: { user: users })
     }
 
     scope :serarch_period, lambda { |start_date, end_date|
