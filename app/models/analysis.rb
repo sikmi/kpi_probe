@@ -12,24 +12,30 @@ class Analysis
   class << self
     def search(search_params)
       categories = Matomo::Action.categories.search_process_name(search_params[:process_name])
-      start_logs = Matomo::LinkVisitAction.start_logs(categories).order_by_server_time(search_params[:order_by], search_params[:sort]).search_logs(search_params)
 
-      build_analyses(start_logs, search_params)
+      all_logs = Matomo::LinkVisitAction.all_logs(categories)
+                                        .search_logs(search_params)
+                                        .preload(:action_name, :event, visit: :user)
+
+      build_analyses(all_logs, search_params)
     end
 
     private
 
-    def build_analyses(start_logs, search_params)
-      analyses = start_logs.eager_load(visit: :user).map do |start_log|
-        finish_log = Matomo::LinkVisitAction.finish_log(start_log)
+    def build_analyses(all_logs, search_params)
+      grouped_logs = all_logs.group_by { |log| log.action_name.name.split('::').last }
+      start_event, finish_event = set_events
+
+      analyses = grouped_logs.map do |_key, logs|
+        start_log, finish_log = find_logs(logs, start_event, finish_event)
+
+        next if start_log.nil?
         next if finish_log.nil? && search_params[:hide_unfinished] == '1'
 
         build_one(start_log, finish_log)
       end.compact
 
-      return analyses if search_params[:order_by] != 'time'
-
-      order_by_time(analyses, search_params[:sort])
+      order(analyses, search_params)
     end
 
     def build_one(start_log, finish_log)
@@ -42,11 +48,35 @@ class Analysis
       )
     end
 
+    def set_events
+      [Matomo::Action.find_by(name: 'Start'), Matomo::Action.find_by(name: 'Finish')]
+    end
+
+    def find_logs(logs, start_event, finish_event)
+      [logs.find { |log| log.event == start_event }, logs.find { |log| log.event == finish_event }]
+    end
+
+    def order(analyses, search_params)
+      if search_params[:order_by] == 'time'
+        order_by_time(analyses, search_params[:sort])
+      else
+        order_by_started_at(analyses, search_params[:sort])
+      end
+    end
+
     def order_by_time(analyses, sort)
       if sort == 'asc'
         analyses.sort_by(&:time)
-      elsif sort == 'desc'
+      else
         analyses.sort_by(&:time).reverse
+      end
+    end
+
+    def order_by_started_at(analyses, sort)
+      if sort == 'asc'
+        analyses.sort_by(&:started_at)
+      else
+        analyses.sort_by(&:started_at).reverse
       end
     end
   end

@@ -11,7 +11,7 @@ module Matomo
     belongs_to :event_category, class_name: 'Matomo::Action', foreign_key: 'idaction_event_category'
     belongs_to :action_name, class_name: 'Matomo::Action', foreign_key: 'idaction_name'
 
-    scope :start_logs, ->(category) { eager_load(:event_category).where(event_category: category).eager_load(:event).where(event: { name: 'Start' }) }
+    scope :all_logs, ->(category) { eager_load(:event_category).where(event_category: category) }
 
     scope :search_user_name, lambda { |user_name|
       return if user_name.nil? || user_name[1].nil?
@@ -19,7 +19,7 @@ module Matomo
       params = {}
       params[ENV['USER_NAME_ATTRIBUTE']] = user_name
       users = User.where(**params)
-      eager_load(visit: :user).where(visit: { user: users })
+      joins(visit: :user).where(visit: { user: users })
     }
 
     scope :serarch_period, lambda { |start_date, end_date|

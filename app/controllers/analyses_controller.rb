@@ -5,7 +5,7 @@ class AnalysesController < ApplicationController
 
   def show
     analyses = Analysis.search(@search_params)
-    @analyses = Kaminari.paginate_array(analyses).page(params[:page]).per(30)
+    @analyses = Kaminari.paginate_array(analyses).page(params[:page]).per(100)
     @chart = Analysis.chart(analyses)
     @total_count = analyses.count
     @average_time = Analysis.average_time(analyses)
