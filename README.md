@@ -20,3 +20,5 @@
   - [計測対象アプリケーションとdockerネットワークの接続](app/docs/network_config.md)
   - [環境変数の用意](app/docs/environment.md)
   - [計測対象アプリケーションへタグを設置する](app/docs/installation_tags.md)
+
+以上の設定を終えた後、計測対象アプリケーションと本アプリケーションを`docekr-compose up`で起動してください。

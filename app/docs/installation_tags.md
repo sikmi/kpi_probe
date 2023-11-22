@@ -3,7 +3,7 @@
 他のフレームワークで使用する際は適宜変更してください。
 
 ## トラッキングタグの設置(ユーザーIDの紐付け)
-基本的なMatomoのに**ユーザーIDの紐付け**を追加してください。
+基本的なMatomoのトラッキングタグに**ユーザーIDの紐付け**を追加してください。
 ```javascript
 var _paq = window._paq = window._paq || [];
 /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
@@ -20,7 +20,8 @@ _paq.push(['enableLinkTracking']);
 ```
 
 ## カスタムイベントタグの設置
-以下のような形式でjavscriptのタグを任意で設置します
+以下のような形式でjavscriptのタグを任意の箇所に設置します。
+引数に渡す配列の 2, 3, 4番目の要素に必要な値を入れます。
 ```javascript
 _paq.push(['trackEvent', 'プロセス名', '計測の開始or終了', 'URL::hash'])
 ```
@@ -35,7 +36,7 @@ _paq.push(['trackEvent', 'プロセス名', '計測の開始or終了', 'URL::has
   `Start`タグが実行されてから`Finish`タグが実行されるまでの時間が
   一覧の「計測時間」欄に表示されます。
 
-  - **URL::hash**
+  - **URL::hash**:
     URLには現在地のURLを入れることを想定しています。
     hashには`Start`と`Finish`の同一性を担保するためにランダムな一意の値を入れます。
     この2つを`::`で繋いで入れてください。
