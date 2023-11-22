@@ -10,3 +10,4 @@ RDS_DB_NAME=xxx_production            # 計測対象アプリケーション用D
 USER_TABLE=users                      # 計測対象アプリuserテーブルの名前を指定。デフォルト: 'users'
 USER_NAME_ATTRIBUTE=name              # 計測対象アプリuserの表示名カラムを指定。デフォルト: 'name'
 ```
+計測対象アプリケーションのユーザーデータを参照するため、ユーザーにあたるテーブル名とユーザー名にあたるカラム名を設定してください。
