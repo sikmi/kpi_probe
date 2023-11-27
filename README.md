@@ -21,4 +21,10 @@
   - [環境変数の用意](app/docs/environment.md)
   - [計測対象アプリケーションへタグを設置する](app/docs/installation_tags.md)
 
+  matomoの設定については [matomo日本語情報発信サイト](https://matomo.jp/)をご確認ください。
+
 以上の設定を終えた後、計測対象アプリケーションと本アプリケーションを`docekr-compose up`で起動してください。
+
+## 認証について
+本アプリケーションは認証機能が付いておりません。
+適宜Basic認証等の認証を設けての運用を推奨します。
