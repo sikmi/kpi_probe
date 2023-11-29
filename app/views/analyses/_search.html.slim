@@ -1,5 +1,5 @@
 
-= form_with url: analyses_path, method: :get, local: true, class: 'search-form' do |f|
+= form_with url: root_path, method: :get, local: true, class: 'search-form' do |f|
   .form-container
     .form-title = 'プロセス'
     = f.collection_select :process_name, Matomo::Action.categories, :name, :name, { selected: @search_params[:process_name], multiple: true }, class: 'select-process select'

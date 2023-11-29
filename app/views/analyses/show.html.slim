@@ -8,11 +8,11 @@
       .toggle-title
         = '未完了のプロセスも表示'
       - if @search_params[:hide_unfinished] == '1'
-        = link_to  analyses_path(@search_params.merge(hide_unfinished: 0)) do 
+        = link_to  root_path(@search_params.merge(hide_unfinished: 0)) do 
           .toggle 
             input type="checkbox" name="check"
       - else
-        = link_to analyses_path(@search_params.merge(hide_unfinished: 1)) do 
+        = link_to root_path(@search_params.merge(hide_unfinished: 1)) do 
           .toggle.checked
             input type="checkbox" name="check"
   .right-content
