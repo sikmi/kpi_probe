@@ -13,7 +13,8 @@ class Analysis
     def search(search_params)
       categories = Matomo::Action.categories.search_process_name(search_params[:process_name])
 
-      all_logs = Matomo::LinkVisitAction.all_logs(categories)
+      all_logs = Matomo::LinkVisitAction.select(:server_time, :idaction_name, :idaction_event_action, :idaction_event_category, :idvisit)
+                                        .all_logs(categories)
                                         .search_logs(search_params)
                                         .preload(:action_name, :event, visit: :user)
 
