@@ -42,7 +42,7 @@ class Analysis < ApplicationRecord
   }
 
   scope :hide_unfinished, lambda { |hide_unfinished|
-    return if hide_unfinished.nil? || hide_unfinished == 'false'
+    return if hide_unfinished.nil? || hide_unfinished == '0'
     
     where.not(time: '--:--:--')
   }
