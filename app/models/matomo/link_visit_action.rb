@@ -11,6 +11,8 @@ module Matomo
     belongs_to :event_category, class_name: 'Matomo::Action', foreign_key: 'idaction_event_category'
     belongs_to :action_name, class_name: 'Matomo::Action', foreign_key: 'idaction_name'
 
+    has_one :analysis, class_name: 'Analysis', foreign_key: 'start_idlink_va', primary_key: 'idlink_va'
+
     scope :all_logs, ->(category) { eager_load(:event_category).where(event_category: category) }
 
     scope :search_user_name, lambda { |user_name|

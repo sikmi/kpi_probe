@@ -1,84 +1,73 @@
 # frozen_string_literal: true
 
-class Analysis
-  include ActiveModel::Model
+class Analysis < ApplicationRecord
   include Chartable
   include Averageable
-
-  attr_accessor :started_at, :process_name, :user_name, :time, :url
-
   DEFAULT_START_DATE = Time.zone.today - 30.days
 
-  class << self
-    def search(search_params)
-      categories = Matomo::Action.categories.search_process_name(search_params[:process_name])
+  belongs_to :start_log, class_name: 'Matomo::LinkVisitAction', foreign_key: 'start_idlink_va'
 
-      all_logs = Matomo::LinkVisitAction.select(:server_time, :idaction_name, :idaction_event_action, :idaction_event_category, :idvisit)
-                                        .all_logs(categories)
-                                        .search_logs(search_params)
-                                        .preload(:action_name, :event, visit: :user)
-
-      build_analyses(all_logs, search_params)
-    end
-
-    private
-
-    def build_analyses(all_logs, search_params)
-      grouped_logs = all_logs.group_by { |log| log.action_name.name.split('::').last }
-      start_event, finish_event = set_events
-
-      analyses = grouped_logs.map do |_key, logs|
-        start_log, finish_log = find_logs(logs, start_event, finish_event)
-
-        next if start_log.nil?
-        next if finish_log.nil? && search_params[:hide_unfinished] == '1'
-
-        build_one(start_log, finish_log)
-      end.compact
-
-      order(analyses, search_params)
-    end
-
-    def build_one(start_log, finish_log)
-      Analysis.new(
-        started_at: start_log.server_time,
-        process_name: start_log.event_category.name,
-        user_name: start_log.visit.user.name,
-        url: start_log.action_name.name.split('::').first,
-        time: finish_log.present? ? Time.at(finish_log.server_time - start_log.server_time).utc.strftime('%H:%M:%S') : '--:--:--'
+  scope :search_analyses, lambda { |search_params|
+    search_user_name(search_params[:user_name])
+      .search_process_name(search_params[:process_name])
+      .search_url(search_params[:url])
+      .search_period(
+        search_params[:start_date]&.to_date || Analysis::DEFAULT_START_DATE,
+        search_params[:end_date]&.to_date || Time.zone.today
       )
-    end
+      .hide_unfinished(search_params[:hide_unfinished])
+      .order_logs(search_params[:order_by], search_params[:sort])
+  }
 
-    def set_events
-      [Matomo::Action.find_by(name: 'Start'), Matomo::Action.find_by(name: 'Finish')]
-    end
+  scope :search_user_name, lambda { |user_name|
+    return if user_name.nil? || user_name[1].nil?
 
-    def find_logs(logs, start_event, finish_event)
-      [logs.find { |log| log.event == start_event }, logs.find { |log| log.event == finish_event }]
-    end
+    where(user_name:)
+  }
 
-    def order(analyses, search_params)
-      if search_params[:order_by] == 'time'
-        order_by_time(analyses, search_params[:sort])
-      else
-        order_by_started_at(analyses, search_params[:sort])
-      end
-    end
+  scope :search_process_name, lambda { |process_name|
+    return if process_name.nil? || process_name[1].nil?
 
-    def order_by_time(analyses, sort)
-      if sort == 'asc'
-        analyses.sort_by(&:time)
-      else
-        analyses.sort_by(&:time).reverse
-      end
-    end
+    where(process_name:)
+  }
 
-    def order_by_started_at(analyses, sort)
-      if sort == 'asc'
-        analyses.sort_by(&:started_at)
-      else
-        analyses.sort_by(&:started_at).reverse
-      end
+  scope :search_url, lambda { |url|
+    return if url.blank?
+
+    where('url LIKE ?', "%#{url}%")
+  }
+
+  scope :search_period, lambda { |start_date, end_date|
+    where(started_at: start_date&.beginning_of_day..end_date&.end_of_day)
+  }
+
+  scope :hide_unfinished, lambda { |hide_unfinished|
+    return if hide_unfinished.nil? || hide_unfinished == 'false'
+    
+    where.not(time: '--:--:--')
+  }
+
+  scope :order_logs, lambda { |order_by, sort|
+    if order_by == 'time'
+      order_by_time(sort)
+    else
+      order_by_started_at(sort)
     end
-  end
+  }
+
+  scope :order_by_time, lambda { |sort|
+    if sort == 'asc'
+      order(time: :asc)
+    else
+      order(time: :desc)
+    end
+  }
+
+  scope :order_by_started_at, lambda { |sort|
+    if sort == 'asc'
+      order(started_at: :asc)
+    else
+      order(started_at: :desc)
+    end
+  }
 end
