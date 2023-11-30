@@ -5,7 +5,7 @@ require 'csv'
 module Analyses
   class DownloadsController < ApplicationController
     def new
-      analyses = Analysis.search(search_params)
+      analyses = Analysis.search_analyses(search_params)
       send_data generate_csv(analyses), filename: "analyses-#{Time.zone.now.strftime('%Y%m%d%H%M%S')}.csv"
     end
 
