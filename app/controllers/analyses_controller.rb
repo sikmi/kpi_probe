@@ -4,8 +4,9 @@ class AnalysesController < ApplicationController
   before_action :set_params, only: :show
 
   def show
-    analyses = Analysis.search(@search_params)
-    @analyses = Kaminari.paginate_array(analyses).page(params[:page]).per(100)
+    ::GenerateAnalyses.execute!
+    analyses = Analysis.search_analyses(@search_params)
+    @analyses = analyses.page(params[:page]).per(100)
     @chart = Analysis.chart(analyses)
     @total_count = analyses.count
     @average_time = Analysis.average_time(analyses)
