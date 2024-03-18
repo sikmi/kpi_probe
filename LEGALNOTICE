@@ -1,0 +1,46 @@
+COPYRIGHT
+
+	Probe
+
+	The software package is:
+
+		Copyright (C) 2023 sikmi
+
+	Individual contributions, components, and libraries are copyright
+	of their respective authors.
+
+
+SOFTWARE LICENSE
+
+	The free software license of Probe is GNU General Public License v3
+	or later.  A copy of GNU GPL v3 should have been included in this
+	software package in LICENSE.
+
+
+THIRD-PARTY COMPONENTS AND LIBRARIES
+
+	Name:  Matomo
+	Link: https://matomo.org/
+	License:  GPL v3
+
+	Name:  Ruby on Rails
+	Link: https://rubyonrails.org/
+	License:  MIT
+
+	Name:  jQuery
+	Link:  https://jquery.com/
+	License:  Dual-licensed: MIT (Expat) or GPL
+
+	Name:  Bootstrap
+	Link:  https://getbootstrap.com/
+	License:  MIT
+
+	Name:  Select2
+	Link:  https://select2.org/
+	License:  MIT
+
+
+THIRD-PARTY CONTENT
+	Name: FontAwesome icons
+	Link: https://fontawesome.com/
+	License: CC BY 4.0
